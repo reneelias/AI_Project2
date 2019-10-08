@@ -79,9 +79,9 @@ class ReflexAgent(Agent):
         print("New Food: ", newFood)
 #        print("X length: ", len(newFood[0]))
         
-#        print("y length: ", len(newFood))
-#        for ghostState in newGhostStates:
-#            print("Ghost state: ", ghostState)
+       # print("y length: ", len(newFood))
+        for ghostState in newGhostStates:
+            print("Ghost state: ", ghostState.getPosition())
         x = 0
         y = 0
         
@@ -95,7 +95,7 @@ class ReflexAgent(Agent):
                     print("Man Dist: ", manDist)
 #                    x = x + 1
     #                score = score + (1/manDist)
-                    score = score + pow(2, manDist)
+                    score = score + pow(manDist, 2)
                 
                 y = y + 1
                 
@@ -105,10 +105,12 @@ class ReflexAgent(Agent):
             y = 0
 #            print("Food: ", food)
 #            input("Press enter...")
+        for ghostState in newGhostStates:
+            score = score - manhattanDistance(newPos, ghostState.getPosition()) * 10
 
-        score = (1 / score) * 100
+        score = (1 / score) * 1000
 #        score = manhattanDistance(newPos, )
-            
+        
         print("Position: ", newPos)
         
 #            
