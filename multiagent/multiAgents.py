@@ -84,7 +84,7 @@ class ReflexAgent(Agent):
             print("Ghost state: ", ghostState.getPosition())
         x = 0
         y = 0
-        
+        foodFound = 0
         for foodX in newFood:
             for foodY in foodX:
 #                print("Food (", x,", ", y, "): ", foodY)
@@ -96,6 +96,8 @@ class ReflexAgent(Agent):
 #                    x = x + 1
     #                score = score + (1/manDist)
                     score = score + pow(manDist, 2)
+#                    score = score + manDist
+                    foodFound = foodFound + 1
                 
                 y = y + 1
                 
@@ -105,10 +107,14 @@ class ReflexAgent(Agent):
             y = 0
 #            print("Food: ", food)
 #            input("Press enter...")
-        for ghostState in newGhostStates:
-            score = score - manhattanDistance(newPos, ghostState.getPosition()) * 10
+        
+#        score = score / foodFound
 
-        score = (1 / score) * 1000
+        for ghostState in newGhostStates:
+            score = score - (manhattanDistance(newPos, ghostState.getPosition()) * 5000)
+
+        score = (1 / score) * 100
+        
 #        score = manhattanDistance(newPos, )
         
         print("Position: ", newPos)
@@ -117,7 +123,7 @@ class ReflexAgent(Agent):
         
         print("Current score: ", score)
         
-        input("Press enter...")
+#        input("Press enter...")
         
 #        return successorGameState.getScore()
         return score
