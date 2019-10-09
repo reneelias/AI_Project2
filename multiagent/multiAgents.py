@@ -76,12 +76,12 @@ class ReflexAgent(Agent):
         "*** YOUR CODE HERE ***"
         
         score = 0
-        print("New Food: ", newFood)
+#        print("New Food: ", newFood)
 #        print("X length: ", len(newFood[0]))
         
        # print("y length: ", len(newFood))
-        for ghostState in newGhostStates:
-            print("Ghost state: ", ghostState.getPosition())
+#        for ghostState in newGhostStates:
+#            print("Ghost state: ", ghostState.getPosition())
         x = 0
         y = 0
         foodFound = 0
@@ -89,14 +89,15 @@ class ReflexAgent(Agent):
             for foodY in foodX:
 #                print("Food (", x,", ", y, "): ", foodY)
                 if foodY is True:
-                    print("FoodY: ", foodY)
+#                    print("FoodY: ", foodY)
                     manDist = manhattanDistance(newPos, (x,y))
-                    print("Found man pos: (", x, ", ", y, ")")
-                    print("Man Dist: ", manDist)
+#                    print("Found man pos: (", x, ", ", y, ")")
+#                    print("Man Dist: ", manDist)
 #                    x = x + 1
-    #                score = score + (1/manDist)
+#                    score = score + (1/manDist)
                     score = score + pow(manDist, 2)
-#                    score = score + manDist
+#                    score = score + 1000/(manDist + 1)
+                    score = score + manDist
                     foodFound = foodFound + 1
                 
                 y = y + 1
@@ -109,11 +110,21 @@ class ReflexAgent(Agent):
 #            input("Press enter...")
         
 #        score = score / foodFound
+        if score != 0:
+#            score = (1 / score) * 100
+            score = 100000 / score
+        else:
+            score = 100000
 
+        print("Food Score: ", score)
         for ghostState in newGhostStates:
-            score = score - (manhattanDistance(newPos, ghostState.getPosition()) * 5000)
+#            score = score - (manhattanDistance(newPos, ghostState.getPosition()) * 1000)
+            ghostHattan = manhattanDistance(newPos, ghostState.getPosition())
+            if ghostHattan != 0:
+                score = score - 10/ghostHattan
+            else:
+                score = score - 2000
 
-        score = (1 / score) * 100
         
 #        score = manhattanDistance(newPos, )
         
