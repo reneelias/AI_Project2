@@ -95,9 +95,13 @@ class ReflexAgent(Agent):
 #                    print("Man Dist: ", manDist)
 #                    x = x + 1
 #                    score = score + (1/manDist)
+#                    if manDist == 1:
+#                        score = score + 1000
                     score = score + pow(manDist, 2)
-#                    score = score + 1000/(manDist + 1)
-                    score = score + manDist
+#                    score = score + pow(2, (manDist/2))
+#                    score = score + 1000000/(pow(manDist, 2))
+#                    score = score + 100/manDist
+#                    score = score + manDist
                     foodFound = foodFound + 1
                 
                 y = y + 1
@@ -111,8 +115,8 @@ class ReflexAgent(Agent):
         
 #        score = score / foodFound
         if score != 0:
-#            score = (1 / score) * 100
-            score = 100000 / score
+            score = (1 / score) * 1000
+#            score = 100000 / score
         else:
             score = 100000
 
@@ -121,11 +125,13 @@ class ReflexAgent(Agent):
 #            score = score - (manhattanDistance(newPos, ghostState.getPosition()) * 1000)
             ghostHattan = manhattanDistance(newPos, ghostState.getPosition())
             if ghostHattan != 0:
-                score = score - 10/ghostHattan
+                score = score - 1/pow(ghostHattan, 2)
+#                score = score - 100/ghostHattan
             else:
                 score = score - 2000
 
-        
+#        if newFood[newPos[0]][newPos[1]] is False:
+#            score = score - 1000000
 #        score = manhattanDistance(newPos, )
         
         print("Position: ", newPos)
